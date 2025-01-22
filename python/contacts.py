@@ -20,6 +20,7 @@ class Contacts:
                 )
               """
             )
+            cursor.execute("CREATE UNIQUE INDEX index_contacts_email ON contacts(email);")
             connection.commit()
         self.connection = sqlite3.connect(db_path)
         self.connection.row_factory = sqlite3.Row
@@ -56,10 +57,11 @@ def main():
         sys.exit("Not enough arguments")
     num_contacts = int(sys.argv[1])
     db_path = Path("contacts.sqlite3")
-    insert_many_contacts(num_contacts)
+    
 
     last_mail = f"email-{num_contacts}@domain.tld"
     contacts = Contacts(db_path)
+    insert_many_contacts(num_contacts)
     print("Looking for email", last_mail)
 
     start = datetime.now()

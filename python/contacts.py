@@ -38,10 +38,16 @@ class Contacts:
 
 def insert_many_contacts(num_contacts):
     print("Inserting {num_contacts} contacts ...")
-    # TODO - at the end of the call,
-    # the database should contain `num_contacts` contacts,
-    # from `email-1@domain.tod` to `email-{num_contacts}@domain.tld`,
-    # in this order
+    db_path = Path("contacts.sqlite3")
+    connection = sqlite3.connect(db_path)
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM contacts")
+    for i in range(num_contacts):
+        cursor.execute(
+            "INSERT INTO contacts (name, email) VALUES (?, ?)",
+            (f"contact-{i+1}", f"email-{i+1}")
+        )
+    connection.commit()
     print("Done")
 
 

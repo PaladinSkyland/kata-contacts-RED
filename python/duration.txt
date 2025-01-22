@@ -1,0 +1,13 @@
+Document matching the size of the database with the duration of
+the query (in milliseconds):
+
+| size         | time (in ms) |
+|--------------|--------------|
+| 10           | 0            |
+| 100          | 0            |
+| 1,000        | 1            |
+| 10,000       | 1            |
+| 50,000       | 1            |
+| 100,000      | 5            |
+| 1,000,000... | 59           |
+| 10,000,000...| 612          |

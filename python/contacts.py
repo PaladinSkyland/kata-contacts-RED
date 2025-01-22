@@ -43,11 +43,10 @@ def insert_many_contacts(num_contacts):
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
     cursor.execute("DELETE FROM contacts")
-    for i in range(num_contacts):
-        cursor.execute(
-            "INSERT INTO contacts (name, email) VALUES (?, ?)",
-            (f"contact-{i+1}", f"email-{i+1}")
-        )
+    contacts = [(f"Name-{i}", f"email-{i}@domain.tld") for i in range(1, num_contacts + 1)]
+    cursor.executemany(
+        "INSERT INTO contacts (name, email) VALUES (?, ?)", contacts
+    )
     connection.commit()
     print("Done")
 
